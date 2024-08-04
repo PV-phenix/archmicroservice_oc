@@ -1,0 +1,8 @@
+package com.uiclient.microservice.proxies;
+
+import org.springframework.cloud.openfeign.FeignClient;
+
+@FeignClient(name = "microservice-commandes", url = "localhost:9002")
+public interface MicroserviceCommandesProxy {
+
+}
