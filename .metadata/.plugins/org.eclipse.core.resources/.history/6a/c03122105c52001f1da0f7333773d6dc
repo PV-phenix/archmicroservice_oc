@@ -1,5 +1,0 @@
-package com.uiclient.microservice.proxies;
-
-public interface MicroserviceCommandesProxy {
-
-}

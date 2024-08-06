@@ -1,5 +1,0 @@
-package com.uiclient.microservice.beans;
-
-public class CommandeBean {
-
-}
