@@ -1,10 +1,10 @@
-package com.micrommerce.zuul_server;
+package com.micrommerce.gateway;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class ZuulServerApplicationTests {
+class GatewayApplicationTests {
 
 	@Test
 	void contextLoads() {
