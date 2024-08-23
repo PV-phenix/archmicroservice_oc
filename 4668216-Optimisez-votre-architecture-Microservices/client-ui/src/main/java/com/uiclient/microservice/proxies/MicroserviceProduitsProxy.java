@@ -14,7 +14,7 @@ import com.uiclient.microservice.beans.ProductBean;
 @RibbonClient(name = "microservice-produits")
 
 public interface MicroserviceProduitsProxy {
-
+	
 	@GetMapping(value = "/Produits")
 	   List<ProductBean> listeDesProduits();
 
