@@ -1,0 +1,7 @@
+CREATE TABLE expedition
+(
+    id          INT PRIMARY KEY,
+    CommandeId  INT NOT NULL,
+    etat		VARCHAR(255) NOT NULL
+ 
+);

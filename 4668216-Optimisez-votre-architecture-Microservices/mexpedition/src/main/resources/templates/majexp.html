@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Accueil Expedition</title>
+	<link rel="stylesheet" type="text/css" href="http://localhost:9006/webjars/bootstrap/4.0.0-2/css/bootstrap.min.css"/>
+</head>
+<body>
+<div>
+	
+    <h1 class="text-center">Expédition Mcommerce - Mise à jour</h1>
+</div>
+<form action="#" th:action="@{/majexp/}+${expedition.Id}" th:object="${expedition}" method="post">
+    <table class="table table-striped table-bordered">
+        <tr>
+            <td>Id:</td>
+            <td><input type="text" th:object="${expedition.Id}" th:name="|Id|" th:value="${expedition.Id}"/></td>
+         </tr>
+        <tr>
+            <td>Id Commande:</td>
+            <td><input type="text" th:object="${expedition.CommandeId}" th:name="|CommandeId|" th:value="${expedition.CommandeId}" /></td>
+ 
+        </tr>
+		    <td>Etat d'expedition: </td>
+		    <td><input type="text" th:object="${expedition.Etat}" th:name="|Etat|" th:value="${expedition.Etat}"/></td>
+
+		</tr>
+        <tr>
+            <td><button type="submit">Submit</button></td>
+        </tr>
+    </table>
+</form>
+<script type="text/javascript" src="http://localhost:9006/webjars/bootstrap/4.0.0-2/js/bootstrap.min.js"></script>
+</body>
+
+</html>

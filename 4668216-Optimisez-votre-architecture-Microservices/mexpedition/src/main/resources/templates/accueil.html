@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Accueil Expedition</title>
+	<link rel="stylesheet" type="text/css" href="http://localhost:9006/webjars/bootstrap/4.0.0-2/css/bootstrap.min.css"/>
+</head>
+<body>
+<div>
+	
+    <h1 class="text-center">Expédition Mcommerce </h1>
+	
+	</div>
+	<!--  Tabelau des expéditions -->
+	<div>
+	<table class="table table-striped table-bordered">
+		<thead class="thead-dark">
+		    <tr>
+		        <th>ID</th>
+		        <th>ID Commande</th>
+		        <th>Etat expédition</th>
+				<th>Commandes</th>
+	    	</tr>
+		</thead>
+		<tbody>
+<!--	<div th:each="expedition : ${expeditions}" class="col-md-4 my-1">-->
+	
+		    <tr th:each="expedition: ${expeditions}">
+		        <td th:text="${expedition.Id}">ID</td>
+		        <td th:text="${expedition.CommandeId}">ID Commande</td>
+		        <td th:text="${expedition.Etat}">Etat expédition</td>
+				<td >
+				    <form th:action="@{'/delete/'+${expedition.Id}}" th:object="${expedition}" th:method="delete" >
+				    <input   type="submit" class="btn btn-danger" value="Supprimmer">
+				    </form>
+					<p></p>
+				    <form th:action="@{'/update/'+${expedition.Id}}" th:object="${expedition}" th:method="update" >
+				    <input   type="submit"  class="btn btn-success" value="Mettre à jour">
+				    </form>
+
+				   
+				</td>
+			</tr>
+			
+		</tbody>
+	</table>
+</div>
+<!--			<p><span>ID Expedition: </span><a th:text= "${expedition.id}"></a></p>-->
+<!--			<p><span>ID Commande: <a th:text= "${expedition.commandeId}"></a></p>-->
+<!--		    <p><span>Etat Expedition: <a th:text= "${expedition.etat}"></a></p>-->
+			
+		
+<!--    <button class="button" th:text= "${expeditions}" onclick="sayHello()">"${expeditions}"</button>-->
+
+
+
+
+<script type="text/javascript" src="http://localhost:9006/webjars/bootstrap/4.0.0-2/js/bootstrap.min.js"></script>
+</body>
+</html>
