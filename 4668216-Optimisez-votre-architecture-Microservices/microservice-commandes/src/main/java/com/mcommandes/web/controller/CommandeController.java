@@ -18,7 +18,7 @@ public class CommandeController {
     @Autowired
     CommandesDao commandesDao;
 
-    @PostMapping (value = "/commandes")
+    @PostMapping ("/commandes")
     public ResponseEntity<Commande> ajouterCommande(@RequestBody Commande commande){
 
         Commande nouvelleCommande = commandesDao.save(commande);
@@ -28,7 +28,7 @@ public class CommandeController {
         return new ResponseEntity<Commande>(commande, HttpStatus.CREATED);
     }
 
-    @GetMapping(value = "/commandes/{id}")
+    @GetMapping("/commandes/{id}")
     public Optional<Commande> recupererUneCommande(@PathVariable int id){
 
         Optional<Commande> commande = commandesDao.findById(id);
@@ -39,11 +39,11 @@ public class CommandeController {
     }
 
     /*
-    * Permet de mettre à jour une commande existante.
-    * save() mettra à jours uniquement les champs renseignés dans l'objet commande reçu. Ainsi dans ce cas, comme le champs date dans "commande" n'est
-    * pas renseigné, la date précédemment enregistrée restera en place
+    * Permet de mettre Ã  jour une commande existante.
+    * save() mettra Ã  jours uniquement les champs renseignï¿½s dans l'objet commande reï¿½u. Ainsi dans ce cas, comme le champs date dans "commande" n'est
+    * pas renseignï¿½, la date prï¿½cï¿½demment enregistrï¿½e restera en place
     **/
-    @PutMapping(value = "/commandes")
+    @PutMapping("/commandes")
     public void updateCommande(@RequestBody Commande commande) {
 
         commandesDao.save(commande);

@@ -23,9 +23,13 @@ public class SpringCloudConfiguration {
 		                          		.filter(loggingFactory.apply(new Config("My Custom Message", true, true)))
 		                         )
 		                .uri("lb://microservice-produits"))
+		                
 		                .route("commandesModule", r -> r.path("/commandes/**")
-		                .uri("lb://microservice-commandes")
-		                )
+		                .uri("lb://microservice-commandes"))
+		                
+		                .route("expeditionModule", r -> r.path("/expeditions/**")
+		                .uri("lb://mexpedition"))
+		                
 		                .build();
     }
 

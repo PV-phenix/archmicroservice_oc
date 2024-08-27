@@ -16,10 +16,11 @@ public class ClientController {
 	
 	   private final MicroserviceProduitsProxy produitsProxy;
 	   
-
+	   	   
 	   public ClientController(MicroserviceProduitsProxy produitsProxy)
 	   {
 	       this.produitsProxy = produitsProxy;
+	      
 	   }
 	   
 	  @RequestMapping("/")
@@ -40,6 +41,5 @@ public class ClientController {
 	    model.addAttribute("produit", produit);
 	    return "FicheProduit";
 	  }
-	  
 
 }

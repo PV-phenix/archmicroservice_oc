@@ -3,72 +3,103 @@ package com.mcommerce.mexpedition.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.mcommerce.mexpedition.dao.ExpeditionDao;
+import com.mcommerce.mexpedition.exception.ExpeditionNotFoundException;
 import com.mcommerce.mexpedition.model.Expedition;
 
 
-@Controller
+
+@RestController // Si on met @Controller alors on voit les templates en visuel
 public class ExpeditionController {
 	
 	@Autowired
 	ExpeditionDao expeditionDao;
 	
 	@GetMapping("/")
-	public String AccueilExpeForm(Model model) {
+	public ModelAndView AccueilExpeForm(Model model) {
+		
 	       List<Expedition> expeditions =  expeditionDao.findAll();
-	       model.addAttribute("expeditions", expeditions);
 	       
+	       model.addAttribute("expeditions", expeditions);
+	       ModelAndView modelAndView = new ModelAndView();
+	       modelAndView.setViewName("accueil");	
 
-		return "accueil";//Ne pas oublier Thymeleaf
+	       return modelAndView	;//Ne pas oublier Thymeleaf
 	}
 	
 	@GetMapping("/addexp")
-	public String AjouterExpedition(){
-		//Expedition expedition = new Expedition(2,2,"En attente");
-//		expeditionDao.save(expedition);
-//		
-		return "ajoutexpedition";
+	public ModelAndView AjouterExpedition(){
+		
+	       ModelAndView modelAndView = new ModelAndView();
+	       modelAndView.setViewName("ajoutexpedition");	
+
+	       return modelAndView;	
+		
 		}
 	
 	@PostMapping("/addexp")
-	public String AjouterExpedition(@Validated Expedition expedition){
+	public ModelAndView AjouterExpedition(@Validated Expedition expedition) throws Exception{
 		//Expedition expedition = new Expedition(2,2,"En attente");
 		expeditionDao.saveAndFlush(expedition);
 		
-		return "redirect:/";
+	       ModelAndView modelAndView = new ModelAndView();
+	       modelAndView.setViewName("../accueil");	
+	       return modelAndView;	
 		
 		
 		}
 	
 	@PostMapping("/delete/{id}")
-	public String GetExpeditionById(@PathVariable int id) {
+	public ModelAndView GetExpeditionById(@PathVariable int id) {
 		//Optional<Expedition> expedition = expeditionDao.findById(id);
 		expeditionDao.deleteById(id);
 		expeditionDao.flush();
-		return "redirect:/" ; 
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.setViewName("accueil");
+		return modelAndView ; 
 		}
 
 	@PostMapping("/update/{id}")
-	public String DeleteExpeditionB(@PathVariable int id,Model model) {
+	public ModelAndView DeleteExpeditionB(@PathVariable int id,Model model) {
 		
 		Expedition expedition = expeditionDao.findById(id).orElseGet(null);
 				
 		model.addAttribute("expedition",expedition);
-		return "majexp" ; 
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.setViewName("majexp");
+		
+		return modelAndView ; 
 		}
 	
 	@PostMapping("/majexp/{id}")
-	public String DeleteExpeditionById(@PathVariable int id,@Validated Expedition expedition) {
-		
-		
+	public ModelAndView DeleteExpeditionById(@PathVariable int id,@Validated Expedition expedition) {
+			
 		expeditionDao.saveAndFlush(expedition);
-		return "redirect:/" ; 
+	       ModelAndView modelAndView = new ModelAndView();
+	       modelAndView.setViewName("accueil");	
+
+	       return modelAndView;
+		
+		}
+	
+	  @GetMapping("/expeditions")
+	  public List<Expedition> LesExpeditions( Model model){
+		  List<Expedition> expeditions = expeditionDao.findAll();
+		  if(expeditions.isEmpty()) throw new ExpeditionNotFoundException("Aucune livraison !");
+	    return expeditions;
+	  }
+	  
+	   @GetMapping("/expeditions/{id}")
+	   Expedition recupererUneExpedition(@PathVariable int id) {
+		   Expedition expedition = expeditionDao.findById(id).orElseGet(null);;
+		return expedition;
 		}
 }

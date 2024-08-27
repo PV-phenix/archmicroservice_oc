@@ -1,1 +1,0 @@
-insert into commande(commande_payee,id,product_Id,quantite,date_commande) values(true,1,1,4,'2024-07-18 00:00' )

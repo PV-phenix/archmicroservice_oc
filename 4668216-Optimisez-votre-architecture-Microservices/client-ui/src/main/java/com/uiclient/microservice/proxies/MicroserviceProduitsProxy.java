@@ -15,7 +15,7 @@ import com.uiclient.microservice.beans.ProductBean;
 
 public interface MicroserviceProduitsProxy {
 	
-	@GetMapping(value = "/Produits")
+	   @GetMapping(value = "/Produits")
 	   List<ProductBean> listeDesProduits();
 
 	   @GetMapping( value = "/Produits/{id}")

@@ -1,0 +1,1 @@
+insert into commande(id,product_Id,commande_payee,quantite,date_commande) values(1,1,true,4,'2024-07-18 00:00' )
