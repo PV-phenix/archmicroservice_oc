@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.Model;
+import org.springframework.ui.ModelMap;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -12,12 +13,14 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.mcommerce.mexpedition.dao.ExpeditionDao;
+import com.mcommerce.mexpedition.exception.ExpeditionException;
 import com.mcommerce.mexpedition.exception.ExpeditionNotFoundException;
 import com.mcommerce.mexpedition.model.Expedition;
 
 
 
 @RestController // Si on met @Controller alors on voit les templates en visuel
+
 public class ExpeditionController {
 	
 	@Autowired
@@ -45,14 +48,20 @@ public class ExpeditionController {
 		
 		}
 	
+	@SuppressWarnings("finally")
 	@PostMapping("/addexp")
 	public ModelAndView AjouterExpedition(@Validated Expedition expedition) throws Exception{
 		//Expedition expedition = new Expedition(2,2,"En attente");
-		expeditionDao.saveAndFlush(expedition);
-		
+			try {
+		   expeditionDao.saveAndFlush(expedition);
+			}
+			catch (Exception e){e.getMessage();}
+			finally {
 	       ModelAndView modelAndView = new ModelAndView();
-	       modelAndView.setViewName("../accueil");	
-	       return modelAndView;	
+	       modelAndView.setViewName("redirect:/");	
+	       return modelAndView;		
+		}
+	       
 		
 		
 		}
@@ -63,14 +72,14 @@ public class ExpeditionController {
 		expeditionDao.deleteById(id);
 		expeditionDao.flush();
         ModelAndView modelAndView = new ModelAndView();
-        modelAndView.setViewName("accueil");
+        modelAndView.setViewName("redirect:/");
 		return modelAndView ; 
 		}
 
 	@PostMapping("/update/{id}")
-	public ModelAndView DeleteExpeditionB(@PathVariable int id,Model model) {
+	public ModelAndView DeleteExpeditionB(@PathVariable int id,Model model) throws ExpeditionException{
 		
-		Expedition expedition = expeditionDao.findById(id).orElseGet(null);
+		Expedition expedition = expeditionDao.findById(id).orElseThrow();
 				
 		model.addAttribute("expedition",expedition);
         ModelAndView modelAndView = new ModelAndView();
@@ -80,11 +89,11 @@ public class ExpeditionController {
 		}
 	
 	@PostMapping("/majexp/{id}")
-	public ModelAndView DeleteExpeditionById(@PathVariable int id,@Validated Expedition expedition) {
+	public ModelAndView DeleteExpeditionById(@PathVariable int id,@Validated Expedition expedition,ModelMap model){
 			
-		expeditionDao.saveAndFlush(expedition);
+			expeditionDao.saveAndFlush(expedition);
 	       ModelAndView modelAndView = new ModelAndView();
-	       modelAndView.setViewName("accueil");	
+	       modelAndView.setViewName("redirect:/");
 
 	       return modelAndView;
 		
