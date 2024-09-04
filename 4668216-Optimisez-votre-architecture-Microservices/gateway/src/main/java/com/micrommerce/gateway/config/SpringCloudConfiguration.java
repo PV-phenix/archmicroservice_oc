@@ -12,10 +12,10 @@ import org.springframework.cloud.gateway.route.builder.RouteLocatorBuilder;
 
 @Configuration
 public class SpringCloudConfiguration {
-	
-	
-	@Bean
-    public RouteLocator gatewayRoutes(RouteLocatorBuilder builder,LoggingGatewayFilterFactory loggingFactory) {
+
+
+    @Bean
+    RouteLocator gatewayRoutes(RouteLocatorBuilder builder, LoggingGatewayFilterFactory loggingFactory) {
         return builder.routes()
         		
 		                .route("produitsModule", r -> r.path("/Produits/**")

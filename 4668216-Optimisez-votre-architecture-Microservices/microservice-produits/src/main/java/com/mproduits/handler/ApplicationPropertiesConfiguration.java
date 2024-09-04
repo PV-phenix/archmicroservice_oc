@@ -1,4 +1,4 @@
-package com.mproduits.configurations;
+package com.mproduits.handler;
 
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.cloud.context.config.annotation.RefreshScope;

@@ -7,9 +7,9 @@ import com.uiclient.microservice.exceptions.CustomErrorDecoder;
 
 @Configuration
 public class FeignExceptionConfig {
-	
-	   @Bean
-	   public CustomErrorDecoder mCustomErrorDecoder(){
+
+    @Bean
+    CustomErrorDecoder mCustomErrorDecoder(){
 	       return new CustomErrorDecoder();
 	   }
 

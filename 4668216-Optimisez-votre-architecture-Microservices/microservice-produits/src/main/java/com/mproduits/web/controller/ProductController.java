@@ -1,25 +1,44 @@
 package com.mproduits.web.controller;
 
-import com.mproduits.configurations.ApplicationPropertiesConfiguration;
-import com.mproduits.dao.ProductDao;
+import java.util.List;
+import java.util.Optional;
 
-
-import com.mproduits.model.Product;
-import com.mproduits.web.exceptions.ProductNotFoundException;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.actuate.health.Health;
+import org.springframework.boot.actuate.health.HealthIndicator;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.List;
-import java.util.Optional;
+import com.mproduits.dao.ProductDao;
+
+import com.mproduits.handler.ApplicationPropertiesConfiguration;
+import com.mproduits.model.Product;
+import com.mproduits.web.exceptions.ProductNotFoundException;
+
+
+//import com.mproduits.handler.SimpleLoggingHandler;
+
+//import io.micrometer.observation.Observation;
+//import io.micrometer.observation.ObservationRegistry;
 
 @RestController
-public class ProductController {
+public class ProductController  implements HealthIndicator  {
 
     @Autowired
     ProductDao productDao;
     private final ApplicationPropertiesConfiguration appProperties;
+    
+    Logger log = LoggerFactory.getLogger(this.getClass());
+    
+
+//    ObservationRegistry observationRegistry = ObservationRegistry.create();
+//    Observation observation = Observation.createNotStarted("sample", observationRegistry);
+
+
+    
     
     public ProductController(ProductDao productDao, ApplicationPropertiesConfiguration appProperties){
     	this.productDao = productDao;
@@ -29,16 +48,33 @@ public class ProductController {
     // Affiche la liste de tous les produits disponibles
     @GetMapping(value = "/Produits")
     public List<Product> listeDesProduits(){
+    	
+    	
+//    	observationRegistry.observationConfig().observationHandler(new SimpleLoggingHandler());
 
-         List<Product> products = productDao.findAll();
 
-        if(products.isEmpty()) throw new ProductNotFoundException("Aucun produit n'est disponible à la vente");
+    	List<Product> listeLimitee =null;
+//    	observation.start();
+//    	try (Observation.Scope scope = observation.openScope()) {
+//    	    // ... the observed action
+            List<Product> products = productDao.findAll();
+            
+            if(products.isEmpty()) throw new ProductNotFoundException("Aucun produit n'est disponible à la vente");
 
-//        return products;
-        
-        List<Product> listeLimitee = products.subList(0, appProperties.getLimitDeProduits());
+               listeLimitee = products.subList(0, appProperties.getLimitDeProduits());
+               // return products;
 
-        return listeLimitee;   
+       
+//    	} catch (Exception e) {
+//    	    observation.error(e);
+//    	    // further exception handling
+//    	} finally {
+//    	    observation.stop();
+//    	}
+               
+        log.info("Récupération de la liste des produits");
+
+        return listeLimitee; 
 
     }
 
@@ -52,5 +88,16 @@ public class ProductController {
 
         return product;
     }
+
+	@Override
+	public Health health() {
+		// TODO Auto-generated method stub
+		List<Product> products = productDao.findAll();
+		if(products.isEmpty()) 
+		{
+		   return Health.down().build();
+		}
+		return Health.up().build();
+	}
 }
 

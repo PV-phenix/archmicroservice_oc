@@ -4,8 +4,8 @@ import java.util.List;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.uiclient.microservice.beans.ProductBean;
 import com.uiclient.microservice.proxies.MicroserviceProduitsProxy;
@@ -23,8 +23,7 @@ public class ClientController {
 	      
 	   }
 	   
-	  @RequestMapping("/")
-
+	  @GetMapping("/")
 	  public String accueil(Model model)
 	  {
 	       List<ProductBean> produits =  produitsProxy.listeDesProduits();
@@ -34,8 +33,7 @@ public class ClientController {
 
 	  }
 	  
-	  @RequestMapping("/details-produit/{id}")
-
+	  @GetMapping("/details-produit/{id}")
 	  public String ficheProduit(@PathVariable int id,  Model model){
 	    ProductBean produit = produitsProxy.recupererUnProduit(id);
 	    model.addAttribute("produit", produit);
