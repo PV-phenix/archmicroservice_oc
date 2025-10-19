@@ -1,11 +1,14 @@
 package com.mproduits.web.exceptions;
 
+import java.io.Serial;
+
 public class ProductException extends Exception{
 
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = -3770133211815252626L;
+    /**
+     * 
+     */
+    @Serial
+    private static final long serialVersionUID = -3770133211815252626L;
 	public enum HelloError {
         HELLO_NOT_FOUND("Page non trouvée", 404);
 

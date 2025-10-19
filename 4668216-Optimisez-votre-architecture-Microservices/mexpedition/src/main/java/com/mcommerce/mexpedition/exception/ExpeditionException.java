@@ -1,11 +1,14 @@
 package com.mcommerce.mexpedition.exception;
 
+import java.io.Serial;
+
 public class ExpeditionException  extends Exception{
 
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
+    /**
+     * 
+     */
+    @Serial
+    private static final long serialVersionUID = 1L;
 
 	public enum ExpeditionError {
 		KeyError("Page non trouvée", 404);

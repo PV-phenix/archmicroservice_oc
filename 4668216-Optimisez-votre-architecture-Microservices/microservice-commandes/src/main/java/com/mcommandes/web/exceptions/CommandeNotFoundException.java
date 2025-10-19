@@ -3,14 +3,17 @@ package com.mcommandes.web.exceptions;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
+import java.io.Serial;
+
 @ResponseStatus(HttpStatus.NOT_FOUND)
 public class CommandeNotFoundException extends RuntimeException {
 
 
     /**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
+     * 
+     */
+    @Serial
+    private static final long serialVersionUID = 1L;
 
 	public CommandeNotFoundException(String message) {
         super(message);

@@ -3,6 +3,8 @@ package com.mcommandes.web.exceptions;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
+import java.io.Serial;
+
 /*
 Si on en arrive à cette exception, c'est qu'il y a eu une erreur interne
 Si la requête était mal formée, elle aurait déclenché 400 Bad Request automatiquement
@@ -12,9 +14,10 @@ Si la requête était mal formée, elle aurait déclenché 400 Bad Request autom
 public class ImpossibleAjouterCommandeException extends RuntimeException {
 
     /**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
+     * 
+     */
+    @Serial
+    private static final long serialVersionUID = 1L;
 
 	public ImpossibleAjouterCommandeException(String message) {
         super(message);
