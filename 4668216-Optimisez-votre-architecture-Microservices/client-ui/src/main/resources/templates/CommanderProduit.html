@@ -1,0 +1,65 @@
+<!DOCTYPE HTML>
+
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+
+	<title>Mcommerce-Commander</title>
+
+	<link rel="stylesheet" type="text/css" href="http://localhost:9000/webjars/bootstrap/4.0.0-2/css/bootstrap.min.css" />
+
+</head>
+
+<body>
+	<div class="container">
+		<h1>Application Mcommerce - Commande d'un article</h1>
+		<div class="col-md-4 mx-auto mt-5 text-center">
+			<div class="row">
+				<table>
+					<thead>
+						<tr>
+							<th th:text="Article"> </th>
+							<th th:text="Prix" }></th>
+							<th th:text="Image" }></th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<td th:text="${commande.productId}"></td>
+							<td th:text="${commande.prix}"></td>
+							<td><img th:src="${produit.image}" style="width:100px;height:100px" /></td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+		</div>
+
+	<div align="center">
+		<h1>Formulaire article</h1>
+		<form action="#" th:action="@{/commandes/passecommande/{commande.id}(commande.id=${commande.id})}" method="post"
+			th:object="${commande.id}">
+			<label>ID commande:</label>
+			<input type="text" th:field="${commande.id}" /><br />
+
+			<label>Product ID:</label>
+			<input type="text" th:field="${commande.productId}" /><br />
+
+
+			<label>Titre:</label>
+			<input type="text" th:field="${commande.titre}" /><br />
+
+			<label>Prix:</label>
+			<input type="text" th:field="${commande.prix}" /><br />
+
+			<label>Quantité:</label>
+			<input type="text" th:field="${commande.quantite}" /><br />
+
+
+			<button type="submit" value="post">Enregistrer</button>
+		</form>
+	</div>
+</div>
+	<script type="text/javascript" src="http://localhost:9000/webjars/bootstrap/4.0.0-2/js/bootstrap.min.js"></script>
+</body>
+
+</html>

@@ -9,9 +9,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 
 import com.uiclient.microservice.beans.CommandeBean;
 
-@FeignClient(name = "microservice-commandes")
+@FeignClient(name = "mcommandes")
 
-@RibbonClient(name = "microservice-commandes")
+@RibbonClient(name = "mcommandes")
 
 public interface MicroserviceCommandeProxy {
 
