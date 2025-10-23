@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 
 import com.uiclient.microservice.beans.ProductBean;
 
-@FeignClient(name = "mproduits")
+@FeignClient(name = "mproduits",url="http://localhost:9001")
 
 @RibbonClient(name = "mproduits")
 

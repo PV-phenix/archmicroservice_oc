@@ -1,6 +1,8 @@
 package com.uiclient.microservice.beans;
 
-import java.util.Date;
+import java.time.LocalDateTime;
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 
 public class CommandeBean {
@@ -9,7 +11,13 @@ public class CommandeBean {
 
     private Integer productId;
 
-    private Date dateCommande;
+    @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss.z")
+    @JsonIgnore
+    private LocalDateTime dateCommande;
+    
+    private String Titre;
+    
+    private Double prix;
 
     private Integer quantite;
 
@@ -34,14 +42,29 @@ public class CommandeBean {
         this.productId = productId;
     }
 
-    public Date getDateCommande() {
+    public LocalDateTime getDateCommande() {
         return dateCommande;
     }
 
-    public void setDateCommande(Date dateCommande) {
+    public void setDateCommande(LocalDateTime dateCommande) {
         this.dateCommande = dateCommande;
     }
+    
+    public String getTitre() {
+		return Titre;
+	}
 
+	public void setTitre(String titre) {
+		Titre = titre;
+	}
+	
+	public Double getPrix() {
+		return prix;
+	}
+
+	public void setPrix(Double prix) {
+		this.prix = prix;
+	}
     public Integer getQuantite() {
         return quantite;
     }
@@ -68,4 +91,6 @@ public class CommandeBean {
                 ", commandePayee=" + commandePayee +
                 '}';
     }
+    
+
 }

@@ -5,11 +5,18 @@ import com.mcommandes.dao.CommandesDao;
 import com.mcommandes.model.Commande;
 import com.mcommandes.web.exceptions.CommandeNotFoundException;
 import com.mcommandes.web.exceptions.ImpossibleAjouterCommandeException;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.ui.Model;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.ModelAndView;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.List;
 import java.util.Optional;
 
 @RestController
@@ -37,6 +44,25 @@ public class CommandeController {
 
         return commande;
     }
+    
+    @GetMapping("/lescommandes")
+    public List<Commande> lesCommandes(){
+      	List<Commande>commandes =commandesDao.findAll();
+	    return commandes;
+    	
+    }
+    
+    @GetMapping("/commandes")
+    public ModelAndView toutesLesCommande(Model model){
+    	List<Commande>commandes =commandesDao.findAll();
+	    model.addAttribute("commandes", commandes);
+	    ModelAndView modelAndView = new ModelAndView();
+	   
+	    modelAndView.setViewName("Accueil");	
+
+	    return modelAndView;
+    	
+    }
 
     /*
     * Permet de mettre à jour une commande existante.
@@ -48,4 +74,36 @@ public class CommandeController {
 
         commandesDao.save(commande);
     }
+    @PostMapping("/commandes/passecommande/{id}")
+    //public  ModelAndView passerUneCommande(@PathVariable int id,@Validated Commande commande){
+    public  void passerUneCommande(@PathVariable int id,@Validated Commande commande){
+    	
+    	LocalDateTime now = LocalDateTime.now();
+		DateTimeFormatter dtf = DateTimeFormatter.ISO_LOCAL_DATE_TIME;
+		dtf.format(now);
+		commande.setDateCommande(now);
+		commande.setCommandePayee(true);
+		commande.setProductId(2);
+		commande.setQuantite(4);
+    	commandesDao.saveAndFlush(commande);
+    	
+    	
+    	
+//    	ModelAndView modelAndView = new ModelAndView();
+//    	modelAndView.setViewName("/");
+    	//modelAndView.setViewName("Accueil");
+
+//		return modelAndView;
+    	
+    }
+    
+	@PostMapping("/commandes/delete/{id}")
+	public ModelAndView GetExpeditionById(@PathVariable int id) {
+		//Optional<Expedition> expedition = expeditionDao.findById(id);
+		commandesDao.deleteById(id);
+		commandesDao.flush();
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.setViewName("redirect:/commandes");
+		return modelAndView ; 
+		}
 }

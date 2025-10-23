@@ -1,0 +1,64 @@
+<!DOCTYPE HTML>
+
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+
+	<title>Accueil Commande</title>
+	<link rel="stylesheet" type="text/css"
+	href="http://localhost:9002/webjars/bootstrap/4.0.0-2/css/bootstrap.min.css" />
+</head>
+
+<body>
+	<div>
+
+		<h1 class="text-center">Commandes Mcommerce </h1>
+
+	</div>
+	<!--  Tableau des commandes -->
+	<div>
+		<table class="table table-striped table-bordered">
+			<thead class="thead-dark">
+				<tr>
+					<th>ID</th>
+					<th>ID Produit</th>
+					<th>Dates</th>
+					<th>Titre</th>
+					<th>Quantité</th>
+					<th>Payée</th>
+					<th>Actions</th>
+				</tr>
+			</thead>
+			<tbody>
+				<!--	<div th:each="commande : ${commandes}" class="col-md-4 my-1">-->
+
+				<tr th:each="commande: ${commandes}">
+					<td th:text="${commande.id}">Id Commande</td>
+					<td th:text="${commande.productId}">ID Produits</td>
+					<td th:text="${commande.dateCommande}">Date de commande</td>
+					<td th:text="${commande.titre}">Titre</td>
+					<td th:text="${commande.quantite}">Quantité</td>
+					<td th:text="${commande.commandePayee}">Payée</td>
+					<td>
+						<form th:action="@{'/commandes/delete/'+${commande.id}}" th:object="${commande}"
+							th:method="delete">
+							<input type="submit" class="btn btn-danger" value="Supprimmer">
+						</form>
+						<p></p>
+						<form th:action="@{'/commandes/update/'+${commande.id}}" th:object="${commande}"
+							th:method="update">
+							<input type="submit" class="btn btn-success" value="Mettre à jour">
+						</form>
+
+
+					</td>
+				</tr>
+
+			</tbody>
+		</table>
+	</div>
+
+	<script type="text/javascript" src="http://localhost:9002/webjars/bootstrap/4.0.0-2/js/bootstrap.min.js"></script>
+</body>
+
+</html>

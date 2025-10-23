@@ -1,10 +1,11 @@
 package com.mcommandes.model;
 
 
+import java.time.LocalDateTime;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
-import java.util.Date;
 
 @Entity
 public class Commande {
@@ -15,7 +16,9 @@ public class Commande {
 
     private Integer productId;
 
-    private Date dateCommande;
+    private LocalDateTime dateCommande;
+    
+    private String titre;
 
     private Integer quantite;
 
@@ -24,9 +27,10 @@ public class Commande {
     public Commande() {
     }
 
-    public Commande(int id, Integer productId, Date dateCommande, Integer quantite, Boolean commandePayee) {
+    public Commande(int id, Integer productId, LocalDateTime dateCommande,String titre, Integer quantite, Boolean commandePayee) {
         this.id = id;
         this.productId = productId;
+        this.titre = titre;
         this.dateCommande = dateCommande;
         this.quantite = quantite;
         this.commandePayee = commandePayee;
@@ -48,11 +52,11 @@ public class Commande {
         this.productId = productId;
     }
 
-    public Date getDateCommande() {
+    public LocalDateTime getDateCommande() {
         return dateCommande;
     }
 
-    public void setDateCommande(Date dateCommande) {
+    public void setDateCommande(LocalDateTime dateCommande) {
         this.dateCommande = dateCommande;
     }
 
@@ -82,4 +86,12 @@ public class Commande {
                 ", commandePayee=" + commandePayee +
                 '}';
     }
+
+	public String getTitre() {
+		return titre;
+	}
+
+	public void setTitre(String titre) {
+		this.titre = titre;
+	}
 }

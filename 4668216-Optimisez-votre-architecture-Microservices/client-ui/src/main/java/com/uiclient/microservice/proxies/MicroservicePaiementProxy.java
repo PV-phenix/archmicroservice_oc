@@ -8,9 +8,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
-@FeignClient(name = "microservice-paiement")
+@FeignClient(name = "mpaiement")
 
-@RibbonClient(name = "microservice-paiement")
+@RibbonClient(name = "mpaiement")
 
 public interface MicroservicePaiementProxy {
 

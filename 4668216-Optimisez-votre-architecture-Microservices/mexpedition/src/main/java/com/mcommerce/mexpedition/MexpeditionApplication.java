@@ -7,7 +7,7 @@ import org.springframework.cloud.openfeign.EnableFeignClients;
 
 @SpringBootApplication
 
-@EnableFeignClients("com.mcommerce.mexpedition")
+@EnableFeignClients("com.mexpedition")
 @EnableDiscoveryClient
 public class MexpeditionApplication {
 
