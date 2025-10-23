@@ -1,23 +1,28 @@
 package com.mcommandes.web.controller;
 
 
-import com.mcommandes.dao.CommandesDao;
-import com.mcommandes.model.Commande;
-import com.mcommandes.web.exceptions.CommandeNotFoundException;
-import com.mcommandes.web.exceptions.ImpossibleAjouterCommandeException;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.ui.Model;
-import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
-import java.util.List;
-import java.util.Optional;
+import com.mcommandes.dao.CommandesDao;
+import com.mcommandes.model.Commande;
+import com.mcommandes.web.exceptions.CommandeNotFoundException;
+import com.mcommandes.web.exceptions.ImpossibleAjouterCommandeException;
 
 @RestController
 public class CommandeController {
@@ -76,15 +81,15 @@ public class CommandeController {
     }
     @PostMapping("/commandes/passecommande/{id}")
     //public  ModelAndView passerUneCommande(@PathVariable int id,@Validated Commande commande){
-    public  void passerUneCommande(@PathVariable int id,@Validated Commande commande){
+    public  void passerUneCommande(@RequestParam int id,@RequestBody Commande commande){
     	
     	LocalDateTime now = LocalDateTime.now();
 		DateTimeFormatter dtf = DateTimeFormatter.ISO_LOCAL_DATE_TIME;
 		dtf.format(now);
 		commande.setDateCommande(now);
 		commande.setCommandePayee(true);
-		commande.setProductId(2);
-		commande.setQuantite(4);
+		//commande.setProductId(2);
+		//commande.setQuantite(4);
     	commandesDao.saveAndFlush(commande);
     	
     	
