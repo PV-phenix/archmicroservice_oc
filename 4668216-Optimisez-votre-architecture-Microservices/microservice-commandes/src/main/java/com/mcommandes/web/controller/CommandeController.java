@@ -1,8 +1,8 @@
 package com.mcommandes.web.controller;
 
 
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
+//import java.time.LocalDateTime;
+//import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Optional;
 
@@ -83,13 +83,13 @@ public class CommandeController {
     //public  ModelAndView passerUneCommande(@PathVariable int id,@Validated Commande commande){
     public  void passerUneCommande(@RequestParam int id,@RequestBody Commande commande){
     	
-    	LocalDateTime now = LocalDateTime.now();
-		DateTimeFormatter dtf = DateTimeFormatter.ISO_LOCAL_DATE_TIME;
-		dtf.format(now);
-		commande.setDateCommande(now);
+//    	LocalDateTime now = LocalDateTime.now();
+//		DateTimeFormatter dtf = DateTimeFormatter.ISO_LOCAL_DATE_TIME;
+//		dtf.format(now);
+//		commande.setDateCommande(now);
 		commande.setCommandePayee(true);
-		//commande.setProductId(2);
-		//commande.setQuantite(4);
+//		commande.setProductId(2);
+//		commande.setQuantite(4);
     	commandesDao.saveAndFlush(commande);
     	
     	

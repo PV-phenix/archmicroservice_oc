@@ -11,7 +11,7 @@ public class CommandeBean {
 
     private Integer productId;
 
-    @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss.z")
+    @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss")
     @JsonIgnore
     private LocalDateTime dateCommande;
     

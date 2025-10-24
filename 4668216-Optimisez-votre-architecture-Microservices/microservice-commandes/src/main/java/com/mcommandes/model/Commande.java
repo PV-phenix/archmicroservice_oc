@@ -3,6 +3,9 @@ package com.mcommandes.model;
 
 import java.time.LocalDateTime;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
@@ -15,7 +18,9 @@ public class Commande {
     private int id;
 
     private Integer productId;
-
+    
+	@JsonFormat(pattern="yyyy-MM-dd HH:mm:ss")
+	@JsonIgnore
     private LocalDateTime dateCommande;
     
     private String titre;
