@@ -1,8 +1,6 @@
 package com.uiclient.microservice.beans;
 
 import java.time.LocalDateTime;
-import com.fasterxml.jackson.annotation.JsonFormat;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 
 
 public class CommandeBean {
@@ -11,8 +9,8 @@ public class CommandeBean {
 
     private Integer productId;
 
-    @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss")
-    @JsonIgnore
+//    @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss")
+//    @JsonIgnore
     private LocalDateTime dateCommande;
     
     private String Titre;

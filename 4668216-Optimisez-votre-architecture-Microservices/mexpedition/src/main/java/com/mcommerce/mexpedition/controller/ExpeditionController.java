@@ -38,6 +38,7 @@ public class ExpeditionController {
 	       return modelAndView	;//Ne pas oublier Thymeleaf
 	}
 	
+	
 	@GetMapping("/addexp")
 	public ModelAndView AjouterExpedition(){
 		
@@ -51,12 +52,12 @@ public class ExpeditionController {
 	@SuppressWarnings("finally")
 	@PostMapping("/addexp")
 	public ModelAndView AjouterExpedition(@Validated Expedition expedition) throws Exception{
-		//Expedition expedition = new Expedition(2,2,"En attente");
-			try {
+		try {
 		   expeditionDao.saveAndFlush(expedition);
 			}
-			catch (Exception e){e.getMessage();}
-			finally {
+		catch (Exception e){e.getMessage();}
+		finally 
+		{
 	       ModelAndView modelAndView = new ModelAndView();
 	       modelAndView.setViewName("redirect:/");	
 	       return modelAndView;		

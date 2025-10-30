@@ -8,12 +8,12 @@ import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -23,6 +23,8 @@ import com.mcommandes.dao.CommandesDao;
 import com.mcommandes.model.Commande;
 import com.mcommandes.web.exceptions.CommandeNotFoundException;
 import com.mcommandes.web.exceptions.ImpossibleAjouterCommandeException;
+
+
 
 @RestController
 public class CommandeController {
@@ -68,26 +70,35 @@ public class CommandeController {
 	    return modelAndView;
     	
     }
+	  @GetMapping("/lescommandes/{id}")
+	  public String CommandeById(@PathVariable int id,Model model) {
 
+	        Optional<Commande> commande = commandesDao.findById(id);
+
+	        if(commande.isEmpty()) throw new CommandeNotFoundException("Cette commande n'existe pas");
+
+	    model.addAttribute("commande", commande);
+	    return "MajCommande";
+	  }
     /*
     * Permet de mettre à jour une commande existante.
     * save() mettra à jours uniquement les champs renseign�s dans l'objet commande re�u. Ainsi dans ce cas, comme le champs date dans "commande" n'est
     * pas renseign�, la date pr�c�demment enregistr�e restera en place
     **/
-    @PutMapping("/commandes")
-    public void updateCommande(@RequestBody Commande commande) {
+    @PostMapping("/commandes/maj/{id}")
+    public void miseAJourDuneCommande(@RequestParam int id,@RequestBody Commande commande) {
 
         commandesDao.save(commande);
     }
-    @PostMapping("/commandes/passecommande/{id}")
-    //public  ModelAndView passerUneCommande(@PathVariable int id,@Validated Commande commande){
+    @PostMapping(value="/commandes/passecommande/{id}",consumes = MediaType.APPLICATION_JSON_VALUE)
+    //public  ModAndView passerUneCommande(@PathVariable int id,@Validated Commande commande){
     public  void passerUneCommande(@RequestParam int id,@RequestBody Commande commande){
     	
 //    	LocalDateTime now = LocalDateTime.now();
 //		DateTimeFormatter dtf = DateTimeFormatter.ISO_LOCAL_DATE_TIME;
 //		dtf.format(now);
 //		commande.setDateCommande(now);
-		commande.setCommandePayee(true);
+    	commande.setCommandePayee(true);
 //		commande.setProductId(2);
 //		commande.setQuantite(4);
     	commandesDao.saveAndFlush(commande);
@@ -102,6 +113,7 @@ public class CommandeController {
     	
     }
     
+    
 	@PostMapping("/commandes/delete/{id}")
 	public ModelAndView GetExpeditionById(@PathVariable int id) {
 		//Optional<Expedition> expedition = expeditionDao.findById(id);
@@ -110,5 +122,13 @@ public class CommandeController {
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("redirect:/commandes");
 		return modelAndView ; 
+		}
+	
+	@PostMapping("/lescommandes/delete/{id}")
+	public void supprimmeUneCommande(@PathVariable int id) {
+//		Optional<Commande> commande = commandesDao.findById(id);
+		commandesDao.deleteById(id);
+		commandesDao.flush();
+
 		}
 }

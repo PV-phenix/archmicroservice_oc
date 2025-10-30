@@ -8,9 +8,11 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.actuate.health.Health;
 import org.springframework.boot.actuate.health.HealthIndicator;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.mproduits.dao.ProductDao;
 
@@ -45,6 +47,16 @@ public class ProductController  implements HealthIndicator  {
     	this.appProperties = appProperties;
     	}
 
+    @GetMapping(value = "/lesproduits")
+    public ModelAndView listeProduits(Model model){
+    	List<Product> produits = productDao.findAll();
+	    model.addAttribute("produits", produits);
+	    ModelAndView modelAndView = new ModelAndView();
+	    
+	    modelAndView.setViewName("Accueil");
+	    return modelAndView;
+    }    
+    
     // Affiche la liste de tous les produits disponibles
     @GetMapping(value = "/Produits")
     public List<Product> listeDesProduits(){

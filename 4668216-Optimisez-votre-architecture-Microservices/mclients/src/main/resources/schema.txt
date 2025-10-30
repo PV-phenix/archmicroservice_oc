@@ -1,0 +1,8 @@
+CREATE TABLE client
+(
+    id          INT PRIMARY KEY,
+    nom		VARCHAR(255) NOT NULL,
+    prenom	VARCHAR(255) NOT NULL,
+    adresse  VARCHAR(255) NOT NULL,
+    email    VARCHAR(255)  NOT NULL
+);

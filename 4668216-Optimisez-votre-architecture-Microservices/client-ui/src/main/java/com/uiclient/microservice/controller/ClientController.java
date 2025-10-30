@@ -1,4 +1,4 @@
-package com.uiclient.microservice.controller;
+	package com.uiclient.microservice.controller;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -10,12 +10,13 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.view.RedirectView;
 
 import com.uiclient.microservice.beans.CommandeBean;
+import com.uiclient.microservice.beans.ExpeditionBean;
 import com.uiclient.microservice.beans.ProductBean;
 import com.uiclient.microservice.proxies.MicroserviceCommandeProxy;
+import com.uiclient.microservice.proxies.MicroserviceExpeditionProxy;
 import com.uiclient.microservice.proxies.MicroserviceProduitsProxy;
 
 
@@ -26,11 +27,14 @@ public class ClientController {
 	   
 	   private final MicroserviceCommandeProxy commandeProxy;
 	   
+	   private final MicroserviceExpeditionProxy expeditionProxy;
+	   
 	   	   
-	   public ClientController(MicroserviceProduitsProxy produitsProxy,MicroserviceCommandeProxy commandeProxy)
+	   public ClientController(MicroserviceProduitsProxy produitsProxy,MicroserviceCommandeProxy commandeProxy,MicroserviceExpeditionProxy expeditionProxy)
 	   {
 	       this.produitsProxy = produitsProxy;
 		   this.commandeProxy = commandeProxy;
+		   this.expeditionProxy = expeditionProxy;
 	      
 	   }
 	   
@@ -85,7 +89,7 @@ public class ClientController {
 	  }
 	  
 	  @PostMapping(value = "/commandes/passecommande/{id}")//@PathVariable 
-	  public RedirectView passerUneCommande(@RequestParam int id,@Validated CommandeBean commande){
+	  public RedirectView passerUneCommande(@PathVariable int id,@Validated CommandeBean commande){
 		  LocalDateTime now = LocalDateTime.now();
 		  DateTimeFormatter dtf = DateTimeFormatter.ISO_LOCAL_DATE_TIME;
 		  dtf.format(now);
@@ -93,5 +97,43 @@ public class ClientController {
 		 commandeProxy.passerUneCommande(id,commande);
 		 return new RedirectView("/");
 		 }
+	  
+	  @GetMapping("/expeditions")
+	  public String lesExpeditions(Model model)
+	  {
+	       List<ExpeditionBean> expeditions =  expeditionProxy.toutesLesExpeditions();
+	       model.addAttribute("expeditions", expeditions);
+
+	      return "Expedition";
+
+	  }
+	  
+	  @PostMapping(value = "/lescommandes/{id}")
+	  public String CommandeById(@PathVariable int id,Model model) {
+	    CommandeBean commande = commandeProxy.recupererUneCommande(id);
+	    ProductBean produit = produitsProxy.recupererUnProduit(commande.getProductId());
+	    model.addAttribute("commande", commande);
+	    model.addAttribute("produit", produit);
+	    return "MajCommande";
+	  }
+	  
+	  @PostMapping (value="/lescommandes/maj/{id}")
+	  public RedirectView miseAJourDuneCommande(@PathVariable int id,@Validated CommandeBean commande) {
+		  LocalDateTime now = LocalDateTime.now();
+		  DateTimeFormatter dtf = DateTimeFormatter.ISO_LOCAL_DATE_TIME;
+		  dtf.format(now);
+		  commande.setDateCommande(now);
+		  
+		  commandeProxy.miseAJourDuneCommande(id,commande);
+		  return new RedirectView("/");
+	  }
+	  
+	  @PostMapping("/lescommandes/delete/{id}")
+	  public RedirectView deleteCommanById(@PathVariable int id){
+		  commandeProxy.supprimmeUneCommande(id);
+		  return new RedirectView("/");
+		  
+	  }
+	  
 
 }

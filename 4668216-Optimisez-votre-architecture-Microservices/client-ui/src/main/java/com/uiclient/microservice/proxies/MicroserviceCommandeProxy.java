@@ -29,4 +29,10 @@ public interface MicroserviceCommandeProxy {
     
     @PostMapping(value = "/commandes/passecommande/{id}")
     public void passerUneCommande(@RequestParam  int id,@RequestBody CommandeBean commande);
+    
+    @PostMapping(value = "/commandes/maj/{id}")
+    public CommandeBean miseAJourDuneCommande(@RequestParam int id,@RequestBody CommandeBean commande);
+    
+    @PostMapping(value = "/lescommandes/delete/{id}")
+    public CommandeBean supprimmeUneCommande(@PathVariable int id);
 }

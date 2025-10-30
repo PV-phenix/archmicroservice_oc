@@ -4,7 +4,7 @@
 
 <head>
 
-	<title>Mcommerce-Commander</title>
+	<title>Mcommerce-mettre à jour une commande</title>
 
 	<link rel="stylesheet" type="text/css" href="http://localhost:9000/webjars/bootstrap/5.3.8/css/bootstrap.min.css" />
 
@@ -13,7 +13,7 @@
 <body>
 	<div align="center" class="container">
 		
-		<h1>Application Mcommerce - Commande d'un article</h1>
+		<h1>Application Mcommerce - Mettre à jour une commande</h1>
 		<div class="col-md-4 mx-auto mt-5 text-center">
 			<div class="row">
 				<table>
@@ -33,7 +33,7 @@
 		<div class="col-md-4 mx-auto mt-5 text-center">	
 		<div align="center" class="input-group mb-3 ">
 		
-			<form action="#" th:action="@{/commandes/passecommande/{commande.id}(commande.id=${commande.id})}" method="post"
+			<form action="#" th:action="@{/lescommandes/maj/{commande.id}(commande.id=${commande.id})}" method="post"
 				th:object="${commande.id}">
 				<div class="input-group mb-3" >
 					<label  class="input-group-text">ID commande:</label>
@@ -59,7 +59,7 @@
 					<label  class="input-group-text">Payée:</label>
 					<input type="text" class="form-control" th:field="${commande.commandePayee}" />
 				</div>
-				<button type="submit" value="post">Enregistrer</button>
+				<button type="submit" value="post">Mettre à jour</button>
 			</form>
 		</div>
 	</div>
