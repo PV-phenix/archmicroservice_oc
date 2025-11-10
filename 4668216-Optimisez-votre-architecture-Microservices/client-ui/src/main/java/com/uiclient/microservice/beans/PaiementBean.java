@@ -53,6 +53,6 @@ public class PaiementBean {
                 ", idCommande=" + idCommande +
                 ", montant=" + montant +
                 ", numeroCarte=" + numeroCarte +
-                '}';
+                "}";
     }
 }

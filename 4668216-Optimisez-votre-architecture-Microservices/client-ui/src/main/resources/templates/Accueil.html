@@ -26,16 +26,17 @@
 
   <h1>Application Mcommerce</h1>
 
-    <div class="navbar navbar-inverse navbar-fixed-top">
-      <div class="container">
-        <div class="navbar-header">
-          <a href="http://localhost:9000/produits">Les produits</a>
-		  <a href="http://localhost:9000/lescommandes">Les commandes</a></li>
-		  <a href="http://localhost:9000/expeditions">Les expeditions</a></li>
-        </div>
-      </div>
+	<div class="navbar navbar-inverse navbar-fixed-top">
+		<div class="container">
+        	<div class="navbar-header">
+				<a href="http://localhost:9000/lesclients">Les clients</a>	
+          		<a href="http://localhost:9000">Les produits</a>
+		  		<a href="http://localhost:9000/lescommandes">Les commandes</a></li>
+		  		<a href="http://localhost:9000/expeditions">Les expeditions</a></li>
+        	</div>
+      	</div>
     </div>
-  </div>
+ </div>
   <div class="row">
 
       <div th:each="produit : ${produits}" class="col-md-4 my-1">

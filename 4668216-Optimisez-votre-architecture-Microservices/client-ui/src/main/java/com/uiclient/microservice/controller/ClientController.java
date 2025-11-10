@@ -14,7 +14,9 @@ import org.springframework.web.servlet.view.RedirectView;
 
 import com.uiclient.microservice.beans.CommandeBean;
 import com.uiclient.microservice.beans.ExpeditionBean;
+import com.uiclient.microservice.beans.ClientBean;
 import com.uiclient.microservice.beans.ProductBean;
+import com.uiclient.microservice.proxies.MicroserviceClientProxy;
 import com.uiclient.microservice.proxies.MicroserviceCommandeProxy;
 import com.uiclient.microservice.proxies.MicroserviceExpeditionProxy;
 import com.uiclient.microservice.proxies.MicroserviceProduitsProxy;
@@ -29,12 +31,15 @@ public class ClientController {
 	   
 	   private final MicroserviceExpeditionProxy expeditionProxy;
 	   
+	   private final MicroserviceClientProxy clientProxy;
+	   
 	   	   
-	   public ClientController(MicroserviceProduitsProxy produitsProxy,MicroserviceCommandeProxy commandeProxy,MicroserviceExpeditionProxy expeditionProxy)
+	   public ClientController(MicroserviceProduitsProxy produitsProxy,MicroserviceCommandeProxy commandeProxy,MicroserviceExpeditionProxy expeditionProxy,MicroserviceClientProxy clientProxy)
 	   {
 	       this.produitsProxy = produitsProxy;
 		   this.commandeProxy = commandeProxy;
 		   this.expeditionProxy = expeditionProxy;
+		   this.clientProxy = clientProxy;
 	      
 	   }
 	   
@@ -88,6 +93,15 @@ public class ClientController {
 
 	  }
 	  
+	  @GetMapping("/lesclients")
+	  public String lesClients(Model model)
+	  {
+	       List<ClientBean> clients =  clientProxy.lesClients();
+	       model.addAttribute("clients",clients);
+
+	      return "Clients";
+
+	  }
 	  @PostMapping(value = "/commandes/passecommande/{id}")//@PathVariable 
 	  public RedirectView passerUneCommande(@PathVariable int id,@Validated CommandeBean commande){
 		  LocalDateTime now = LocalDateTime.now();

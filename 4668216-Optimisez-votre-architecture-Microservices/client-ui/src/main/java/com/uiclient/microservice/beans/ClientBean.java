@@ -1,20 +1,9 @@
-package com.mclients.model;
+package com.uiclient.microservice.beans;
 
 import java.util.UUID;
 
-import org.hibernate.annotations.UuidGenerator;
+public class ClientBean {
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-
-@Entity
-public class Client {
-	
-    @Id
-    @UuidGenerator
-    @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
 
     private String nom;
@@ -25,18 +14,7 @@ public class Client {
 
     private String email;
 
-    public Client() {
-    	}
-
-    public Client(UUID id, String nom, String prenom, String adresse, String email) {
-        this.id = id;
-        this.nom = nom;
-        this.prenom = prenom;
-        this.adresse = adresse;
-        this.email= email;
-    }
-
-	public UUID getUUID() {
+ 	public UUID getUUID() {
 		return id;
 	}
 
@@ -75,5 +53,16 @@ public class Client {
 	public void setEmail(String email) {
 		this.email = email;
 	}
+	
+    @Override
+    public String toString() {
+        return "ClientBean{" +
+                "id=" + id +
+                ",  nom=" +  nom +
+                ", prenom=" + prenom +
+                ", adresse=" + adresse +
+                ", email" + email+
+                "}";
+    }
 
 }

@@ -1,0 +1,49 @@
+<!DOCTYPE HTML>
+
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+
+	<title>Mcommerce-Clients</title>
+
+	<link rel="stylesheet" type="text/css" href="http://localhost:9005/webjars/bootstrap/5.3.8/css/bootstrap.min.css" />
+
+</head>
+
+<body>
+	<div align="center" class="container">
+		
+	<h1>Application Mcommerce - Ajout d'un client</h1>
+	<div class="col-md-4 mx-auto mt-5 text-center">	
+		<div align="center" class="input-group mb-3 ">
+		
+			<form action="#" th:action="@{/clients/sauveclient}" method="post" th:object="${client}">
+				<div class="input-group mb-3">
+					<label  class="input-group-text">UUID:</label>
+					<input type="text" class="form-control" th:value="${uuid}" />
+				</div>
+				<div class="input-group mb-3">
+					<label  class="input-group-text">Nom:</label>
+					<input type="text" class="form-control" th:field="${client.nom}" />
+				</div>
+				<div class="input-group mb-3">
+					<label  class="input-group-text">Prénom:</label>
+					<input type="text" class="form-control" th:field="${client.prenom}" />
+				</div>
+				<div class="input-group mb-3">
+					<label  class="input-group-text">Email:</label>
+					<input type="text" class="form-control" th:field="${client.email}" />
+				</div>
+				<div class="input-group mb-3">
+					<label  class="input-group-text">Adresse:</label>
+					<input type="text" class="form-control" th:field="${client.adresse}" />
+				</div>
+				<button type="submit" value="post">Enregistrer</button>
+			</form>
+		</div>
+	</div>
+</div>
+	<script type="text/javascript" src="http://localhost:9005/webjars/bootstrap/5.3.8/js/bootstrap.min.js"></script>
+</body>
+
+</html>

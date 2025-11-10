@@ -1,15 +1,10 @@
 package com.mcommandes.web.controller;
 
-
-//import java.time.LocalDateTime;
-//import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -32,15 +27,15 @@ public class CommandeController {
     @Autowired
     CommandesDao commandesDao;
 
-    @PostMapping ("/commandes")
-    public ResponseEntity<Commande> ajouterCommande(@RequestBody Commande commande){
-
-        Commande nouvelleCommande = commandesDao.save(commande);
-
-        if(nouvelleCommande == null) throw new ImpossibleAjouterCommandeException("Impossible d'ajouter cette commande");
-
-        return new ResponseEntity<Commande>(commande, HttpStatus.CREATED);
-    }
+//    @PostMapping (value="/commandes")
+//    public ResponseEntity<Commande> ajouterCommande(@RequestParam int id,@RequestBody Commande commande){
+//
+//        Commande nouvelleCommande = commandesDao.save(commande);
+//
+//        if(nouvelleCommande == null) throw new ImpossibleAjouterCommandeException("Impossible d'ajouter cette commande");
+//
+//        return new ResponseEntity<Commande>(commande, HttpStatus.CREATED);
+//    }
 
     @GetMapping("/commandes/{id}")
     public Optional<Commande> recupererUneCommande(@PathVariable int id){
@@ -94,22 +89,10 @@ public class CommandeController {
     //public  ModAndView passerUneCommande(@PathVariable int id,@Validated Commande commande){
     public  void passerUneCommande(@RequestParam int id,@RequestBody Commande commande){
     	
-//    	LocalDateTime now = LocalDateTime.now();
-//		DateTimeFormatter dtf = DateTimeFormatter.ISO_LOCAL_DATE_TIME;
-//		dtf.format(now);
-//		commande.setDateCommande(now);
+    	if(commande == null) throw new ImpossibleAjouterCommandeException("Impossible d'ajouter cette commande");
     	commande.setCommandePayee(true);
-//		commande.setProductId(2);
-//		commande.setQuantite(4);
-    	commandesDao.saveAndFlush(commande);
-    	
-    	
-    	
-//    	ModelAndView modelAndView = new ModelAndView();
-//    	modelAndView.setViewName("/");
-    	//modelAndView.setViewName("Accueil");
 
-//		return modelAndView;
+    	commandesDao.saveAndFlush(commande);
     	
     }
     
