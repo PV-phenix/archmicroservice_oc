@@ -8,55 +8,55 @@ public class ProductBean {
 	 private String image;
 	 private Double prix;
 
-	 public ProductBean() 
+	 public ProductBean()
 	{
 
 	 }
 
-	 public int getId() 
+	 public int getId()
 	{
 	    return id;
 	 }
-	 public void setId(int id) 
+	 public void setId(int id)
 	{
 	    this.id = id;
 	}
-	public String getTitre() 
+	public String getTitre()
 	{
 	    return titre;
 	}
-	public void setTitre(String titre) 
+	public void setTitre(String titre)
 	{
 	    this.titre = titre;
 	 }
-	 public String getDescription() 
+	 public String getDescription()
 	{
 	    return description;
 	 }
-	 public void setDescription(String description) 
+	 public void setDescription(String description)
 	{
 	    this.description = description;
 	 }
-	 public String getImage() 
+	 public String getImage()
 	{
 	    return image;
 	 }
-	 public void setImage(String image) 
+	 public void setImage(String image)
 	{
 	    this.image = image;
 	}
-	 public Double getPrix() 
+	 public Double getPrix()
 	{
 	    return prix;
 	 }
 
-	 public void setPrix(Double prix) 
+	 public void setPrix(Double prix)
 	 {
 	    this.prix = prix;
 	}
 
 	 @Override
-	 public String toString() 
+	 public String toString()
 	{
 	    return "ProductBean{" +
 	      "id=" + id +

@@ -17,10 +17,10 @@
 	<div class="col-md-4 mx-auto mt-5 text-center">	
 		<div align="center" class="input-group mb-3 ">
 		
-			<form action="#" th:action="@{/clients/sauveclient}" method="post" th:object="${client}">
+			<form action="#" th:action="@{/clients/majclient/${client.id}}" method="post" th:object="${client}">
 				<div class="input-group mb-3">
 					<label  class="input-group-text">Id:</label>
-					<input type="text" class="form-control" th:value="${client.id}" />
+					<input type="text" class="form-control" th:field="${client.id}" />
 				</div>
 				<div class="input-group mb-3">
 					<label  class="input-group-text">Nom:</label>

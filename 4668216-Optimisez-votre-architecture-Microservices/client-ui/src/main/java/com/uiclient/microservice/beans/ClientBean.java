@@ -1,10 +1,14 @@
 package com.uiclient.microservice.beans;
 
-import java.util.UUID;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
 
 public class ClientBean {
 
-    private UUID id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+	private int id;
 
     private String nom;
 
@@ -14,12 +18,12 @@ public class ClientBean {
 
     private String email;
 
- 	public UUID getUUID() {
+ 	public int getId() {
 		return id;
 	}
 
-	public void setUUID(UUID i) {
-		this.id = i;
+	public void setId(int id) {
+		this.id = id;
 	}
 
 	public String getNom() {
@@ -53,7 +57,7 @@ public class ClientBean {
 	public void setEmail(String email) {
 		this.email = email;
 	}
-	
+
     @Override
     public String toString() {
         return "ClientBean{" +

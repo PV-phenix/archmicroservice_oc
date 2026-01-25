@@ -10,9 +10,9 @@ public class CommandeBean {
     private Integer productId;
 
     private LocalDateTime dateCommande;
-    
+
     private String Titre;
-    
+
     private Double prix;
 
     private Integer quantite;
@@ -45,7 +45,7 @@ public class CommandeBean {
     public void setDateCommande(LocalDateTime dateCommande) {
         this.dateCommande = dateCommande;
     }
-    
+
     public String getTitre() {
 		return Titre;
 	}
@@ -53,7 +53,7 @@ public class CommandeBean {
 	public void setTitre(String titre) {
 		Titre = titre;
 	}
-	
+
 	public Double getPrix() {
 		return prix;
 	}
@@ -87,6 +87,6 @@ public class CommandeBean {
                 ", commandePayee=" + commandePayee +
                 "}";
     }
-    
+
 
 }

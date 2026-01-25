@@ -1,4 +1,4 @@
-package com.micrommerce.gateway.filters;
+package com.mcommerce.gateway.filters;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

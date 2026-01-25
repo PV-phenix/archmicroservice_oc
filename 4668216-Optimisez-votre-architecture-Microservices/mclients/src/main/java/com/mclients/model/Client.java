@@ -1,9 +1,5 @@
 package com.mclients.model;
 
-import java.util.UUID;
-
-import org.hibernate.annotations.UuidGenerator;
-
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -12,11 +8,10 @@ import jakarta.persistence.Id;
 @Entity
 public class Client {
 	
-    @Id
-    @UuidGenerator
-    @GeneratedValue(strategy = GenerationType.UUID)
-    private UUID id;
-
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	private int id;
+	
     private String nom;
 
     private String prenom;
@@ -28,7 +23,7 @@ public class Client {
     public Client() {
     	}
 
-    public Client(UUID id, String nom, String prenom, String adresse, String email) {
+    public Client(int id, String nom, String prenom, String adresse, String email) {
         this.id = id;
         this.nom = nom;
         this.prenom = prenom;
@@ -36,11 +31,11 @@ public class Client {
         this.email= email;
     }
 
-	public UUID getUUID() {
+	public int getId() {
 		return id;
 	}
 
-	public void setUUID(UUID i) {
+	public void setId(int i) {
 		this.id = i;
 	}
 

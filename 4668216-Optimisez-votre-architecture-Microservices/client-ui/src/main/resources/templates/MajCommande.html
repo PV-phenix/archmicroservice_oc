@@ -33,16 +33,21 @@
 		<div class="col-md-4 mx-auto mt-5 text-center">	
 		<div align="center" class="input-group mb-3 ">
 		
-			<form action="#" th:action="@{/lescommandes/maj/{commande.id}(commande.id=${commande.id})}" method="post"
+			<form action="#" th:action="@{/lescommandes/maj/{commande.id}(commande.id=${commande.id})}"th:attr="value=#{number}" method="post"
 				th:object="${commande.id}">
 				<div class="input-group mb-3" >
 					<label  class="input-group-text">ID commande:</label>
-					<input type="text" class="form-control" th:field="${commande.id}" />
+					<input type="text" class="form-control" th:field="${commande.id}"/>
 				</div>
 				<div class="input-group mb-3">
 					<label  class="input-group-text">Product ID:</label>
 					<input type="text" class="form-control" th:field="${commande.productId}" />
 				</div>
+				<form  action="#" th:action="@{'//localhost:9000/produits''}" method="get">
+					<div class="input-group mb-3">
+					        <button type="submit" class="btn btn-danger">Choisir un autre produit  </button>
+					</div>	
+				</form>			
 				<div class="input-group mb-3">
 					<label  class="input-group-text">Titre:</label>
 					<input type="text" class="form-control" th:field="${commande.titre}" />

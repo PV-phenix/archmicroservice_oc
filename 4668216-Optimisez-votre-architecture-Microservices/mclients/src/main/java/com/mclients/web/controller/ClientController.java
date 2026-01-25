@@ -1,26 +1,30 @@
 package com.mclients.web.controller;
 
-import java.util.UUID;
+import java.util.Optional;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.actuate.health.Health;
-import org.springframework.boot.actuate.health.HealthIndicator;
+import org.springframework.boot.health.contributor.HealthIndicator;
+import org.springframework.boot.health.contributor.Health;
+
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
-//import org.hibernate.jpa.HibernatePersistenceProvider;
+import org.springframework.web.servlet.view.RedirectView;
 
 import com.mclients.dao.ClientDao;
+import com.mclients.exceptions.ClientNotFoundException;
 import com.mclients.model.Client;
+import com.mclients.service.ClientService;
 
 import io.swagger.v3.oas.annotations.tags.Tag;
-//import jakarta.persistence.EntityManager;
-//import jakarta.persistence.EntityManagerFactory;
-//import jakarta.persistence.Persistence;
 
 
 
@@ -35,6 +39,9 @@ public class ClientController  implements HealthIndicator {
 	
     @Autowired
     ClientDao clientDao;
+    
+    @Autowired
+    ClientService clientService;
       
     Logger log = LoggerFactory.getLogger(this.getClass());
 
@@ -60,36 +67,17 @@ public class ClientController  implements HealthIndicator {
 		
 		
     	Iterable<Client> clients = clientDao.findAll();
-//    	
-//    	List<String> uuids =new ArrayList<String>();
-//    	
-//    	for (int i = 0; i<clientDao.count();i++) {
-//    	
-//    	  	String uuid=clients.iterator().next().getUUID().toString();
-//    		uuids.add(uuid);
-//    	    		
-//    	}
-//    	
-//    	model.addAttribute("uuids",uuids);
     	
-	    model.addAttribute("clients", clients);
+    	model.addAttribute("clients", clients);
 
-	    ModelAndView modelAndView = new ModelAndView();
+    	ModelAndView modelAndView = new ModelAndView();
 	   
-	    modelAndView.setViewName("Accueil");	
+    	modelAndView.setViewName("Accueil");	
 
 	    return modelAndView;
     	
     }
 	
-	
-//	public Optional<Client> findClient() {
-//		Optional<Client> client = clientDao.findById(findClientTopId());
-//		if(client.isEmpty()) throw new ClientNotFoundException("Cette commande n'existe pas");
-//		
-//		return client;
-//		
-//	}
 
 	
 	@Tag(name = "Les clients - Ajout")
@@ -97,11 +85,9 @@ public class ClientController  implements HealthIndicator {
 	public ModelAndView  creationClient(Model model)
 	{
 		Client client = new Client();
+		int idMax = clientDao.findClientByTopId();
+		client.setId(idMax + 1);
 		
-		client.setUUID(UUID.randomUUID());
-		
-		
-		model.addAttribute("uuid",client.getUUID().toString());
 		model.addAttribute("client", client);
 
 	    ModelAndView modelAndView = new ModelAndView();
@@ -114,12 +100,99 @@ public class ClientController  implements HealthIndicator {
 
 	@Tag(name = "Les clients - Sauvegarde d'un client")
     @PostMapping(value = "/clients/sauveclient")
-   	public void  sauveClient(Client client){
+   	public RedirectView  sauveClient(Client client){
+		int maxId =clientDao.findClientByTopId();
+		client.setId(maxId + 1);
+		
+		clientDao.insertClient(client.getId(), client.getNom(), client.getPrenom(),client.getAdresse(), client.getEmail());
+		
+		RedirectView redirectView = new RedirectView();
+		redirectView.setUrl("/clients");
 
-		clientDao.saveAndFlush(client);
-//		}
+		return redirectView;
+   	
 	}
 	
-	
+	@Tag(name = "Les clients - Suppression d'un client")
+	@PostMapping(value = "/clients/delete/{id}")
+	public RedirectView DeleteClientById(@PathVariable int id) {
+		
+		clientService.deleteClientById(id);
+		RedirectView redirectView = new RedirectView();
+        redirectView.setUrl("/clients");
+		return redirectView; 
+		}
 
+	
+	@Tag(name = "Les clients - Suppression d'un client")
+	@DeleteMapping(value = "/lesclients/del/{id}")
+	public void deleteLesClientById(@PathVariable int id) {
+		
+		clientService.deleteClientById(id);
+
+
+		}
+	
+	@Tag(name = "Les clients - Mise à jour d'un client")
+	@PostMapping("/lesclients/update/{id}")
+	public ModelAndView miseAjourLesClientById(@PathVariable int id,Model model) {
+		
+
+		Optional<Client> client =clientDao.findById(id);
+		model.addAttribute("client", client);
+
+	    ModelAndView modelAndView = new ModelAndView();
+	   
+	    modelAndView.setViewName("MajClient");	
+
+	    return modelAndView;
+		}
+	
+	@Tag(name = "Les clients - Mise à jour d'un client")
+	@PostMapping("/clients/update/{id}")
+	public ModelAndView miseAjourClientById(@PathVariable int id,Model model) {
+		
+
+		Optional<Client> client =clientDao.findById(id);
+		model.addAttribute("client", client);
+
+	    ModelAndView modelAndView = new ModelAndView();
+	   
+	    modelAndView.setViewName("UpdateClient");	
+
+	    return modelAndView;
+		}
+	
+	@Tag(name = "Les clients - Client mis à jour")
+    @PostMapping(value = "/clients/maj/{id}")
+   	public RedirectView  majClient(@RequestParam int id,@RequestBody Client client){
+		
+		clientDao.saveAndFlush(client);
+		
+		RedirectView redirectView = new RedirectView();
+		redirectView.setUrl("/clients");
+
+		return redirectView;
+   	
+	}
+
+	@Tag(name = "Les clients - Mis à jour Client pour le client central")
+    @PostMapping(value = "/lesclients/find/{id}")
+   	public Optional<Client>  findLeClient(@PathVariable int id){
+		
+   		Optional<Client> client =clientDao.findById(id);
+
+		return client;
+   	
+	}
+	
+	@Tag(name = "Les clients - Mise à jour Client - Client Central")
+    @PostMapping(value = "/lesclients/maj/{id}", consumes="application/json")
+   	public void  majLeClient(@RequestParam  int id,@RequestBody Client client){
+	   	if(client == null) throw new ClientNotFoundException("Impossible de modifier ce client");
+    	
+		clientDao.saveAndFlush(client);
+   	
+	}
 }
+

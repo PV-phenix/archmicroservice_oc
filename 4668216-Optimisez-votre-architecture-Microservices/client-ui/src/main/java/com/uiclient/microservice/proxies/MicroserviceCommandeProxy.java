@@ -20,19 +20,19 @@ public interface MicroserviceCommandeProxy {
 
     @PostMapping(value = "/commandes/add")
     public CommandeBean ajouterCommande(@RequestBody CommandeBean commande);
-    
+
     @GetMapping(value = "/lescommandes")
     public List<CommandeBean> lesCommandes();
-    
+
     @GetMapping(value = "/commandes/{id}")
     public CommandeBean recupererUneCommande(@PathVariable int id);
-    
+
     @PostMapping(value = "/commandes/passecommande/{id}")
     public void passerUneCommande(@RequestParam  int id,@RequestBody CommandeBean commande);
-    
+
     @PostMapping(value = "/commandes/maj/{id}")
     public CommandeBean miseAJourDuneCommande(@RequestParam int id,@RequestBody CommandeBean commande);
-    
+
     @PostMapping(value = "/lescommandes/delete/{id}")
     public CommandeBean supprimmeUneCommande(@PathVariable int id);
 }

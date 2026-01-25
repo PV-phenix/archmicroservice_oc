@@ -1,0 +1,54 @@
+Tentative UUID: UUID en tant que clé primaire s'avère être mauvais pour les performances SQL !!
+
+    Map<String, String> maps=new HashMap<>();
+    List<Map<String, String>> _clients = new ArrayList<Map<String, String>>();
+// List keys=new ArrayList<>(); // List values=new ArrayList<>(); // List fauxClients =new ArrayList(); // List noms =new ArrayList(); // // // for (int i = 0; i<clientDao.count();i++) { // // Client client=clients.iterator().next(); // String uuid=client.getUUID().toString(); // String nom=client.getNom(); // // noms.add(nom); // uuids.add(uuid); // // } //
+
+// model.addAttribute("uuids",uuids); // model.getAttribute("client.id").toString(); // Map<String, String> maps = new HashMap<>();
+
+    //Client iter = new Client();
+    Iterator<Client> iter = clients.iterator();
+    Client client = new Client();
+        while(iter.hasNext()) 
+    {
+        client = iter.next();
+        maps.put("uuid", client.getUUID().toString());
+        maps.put("nom",client.getNom()) ;
+        maps.put("prenom", client.getPrenom());
+        maps.put("email", client.getEmail());
+        maps.put("adresse",client.getAdresse());
+        _clients.add(maps);
+                
+    }
+    
+// map.put("uuid",("client.id"); // model.addAllAttributes(maps); // model.mergeAttributes(map); // String fauxClient; // model.mergeAttributes(map<clients,fauxClient> clients.id); // model.addAllAttributes(fauxClients); // model.addAttribute("clients", fauxClients); // Iterator lesClients = clients.iterator();
+
+// for (int i = 0; i<clientDao.count();i++) { // maps.put(Integer.toString(i),lesClients.next().getUUID().toString()); // maps.put("uuid",lesClients.next().getUUID().toString()); // uuids.add(lesClients.next().getUUID().toString()); // } // model.mergeAttributes(maps); // model.addAllAttributes(_clients); model.addAttribute("clients",_clients); // model.mergeAttributes(maps);
+
+Pour l'ajout d'un client avec UUID: client.setUUID(UUID.randomUUID()); model.addAttribute("uuid",client.getUUID().toString());
+
+//    @Id
+//    @UuidGenerator
+//    @GeneratedValue(generator = "UUID",strategy = GenerationType.UUID)
+//    private UUID id;
+	
+
+
+
+Insertion SQL avec UUID:
+
+INSERT INTO CLIENT (ID ,NOM ,PRENOM ,ADRESSE ,EMAIL ) VALUES ('d576ab3b-8a36-4dff-b50c-9d9d4ca6072a', 'DAUDET', 'Alphonse', '15 rue du general De Gaulle', 'alphonse.daudet@bbox.fr');
+
+INSERT INTO CLIENT (ID,NOM ,PRENOM ,ADRESSE ,EMAIL ) VALUES ('d576ab3b-8a36-4dff-b50c-9d9d4ca6072b', 'LAMENACE', 'Max', '15 Avenue de la cinquième', 'max.lamenace@bbox.fr');
+
+INSERT INTO CLIENT (ID ,NOM ,PRENOM ,ADRESSE ,EMAIL ) VALUES ('d576ab3b-8a36-4dff-b50c-9d9d4ca6072c', 'RIMBAUD', 'Arthur', '15 Avenue de la cinquième', 'arthur.rimbaud@bbox.fr');
+
+INSERT INTO CLIENT (ID ,NOM ,PRENOM ,ADRESSE ,EMAIL ) VALUES ('d576ab3b-8a36-4dff-b50c-9d9d4ca6072d', 'AVOS', 'Marc', '15 Avenue de la cinquième', 'marc.avos@bbox.fr');
+
+INSERT INTO CLIENT (ID ,NOM ,PRENOM ,ADRESSE ,EMAIL ) VALUES ('d576ab3b-8a36-4dff-b50c-9d9d4ca6072e', 'DE VILLIERS', 'Philippe', '15 Avenue de la cinquième', 'philippe.devilliers@bbox.fr');
+
+INSERT INTO CLIENT (ID ,NOM ,PRENOM ,ADRESSE ,EMAIL ) VALUES ('d576ab3b-8a36-4dff-b50c-9d9d4ca6072f', 'LAMENACE', 'Max', '15 Avenue de la cinquième', 'max.lamenace@bbox.fr');
+
+INSERT INTO CLIENT (ID ,NOM ,PRENOM ,ADRESSE ,EMAIL ) VALUES ('d576ab3b-8a36-4dff-b50c-9d9d4ca60720', 'LAMENACE', 'Max', '15 Avenue de la cinquième', 'max.lamenace@bbox.fr');
+
+INSERT INTO CLIENT (ID ,NOM ,PRENOM ,ADRESSE ,EMAIL ) VALUES ('d576ab3b-8a36-4dff-b50c-9d9d4ca60721', 'LAMENACE', 'Max', '15 Avenue de la cinquième', 'max.lamenace@bbox.fr');

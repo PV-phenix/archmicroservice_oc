@@ -19,7 +19,7 @@
 		<table class="table table-striped table-bordered">
 			<thead class="thead-dark">
 				<tr>
-<!--					<th>Uuid</th>-->
+					<th>Uuid</th>
 					<th>Nom</th>
 					<th>Prénom</th>
 					<th>Adresse</th>
@@ -27,28 +27,22 @@
 				</tr>
 			</thead>
 			<tbody>
-				<!--	<div th:each="client : ${clients}" class="col-md-4 my-1">-->
-
-				<tr th:each="client: ${clients}">
-<!--				<td th:text="${#strings.defaultString(client.id,default)}">Id</td>-->
+			<tr th:each="client: ${clients}">
+				<td th:text="${client.id}">Id</td>
 				<td th:text="${client.nom}">Nom</td>
 					<td th:text="${client.prenom}">Prénom</td>
 					<td th:text="${client.adresse}">Adresse</td>
 					<td th:text="${client.email}">Email</td>
-<!--					<td>-->
-<!--						<form th:action="@{'/clients/delete/'+${client.id}}" th:object="${client}"-->
-<!--							th:method="delete">-->
-<!--							<input type="submit" class="btn btn-danger" value="Supprimer">-->
-<!--						</form>-->
-<!--						<p></p>-->
-<!--						<form th:action="@{'/clients/update/'+${client.id}}" th:object="${client}"-->
-<!--							th:method="update">-->
-<!--							<input type="submit" class="btn btn-success" value="Mettre à jour">-->
-<!--						</form>-->
-
-
-<!--					</td>-->
-				</tr>
+					<td>
+						<form th:action="@{'/clients/del/'+${client.id}}" th:object="${client}" th:method="delete">
+							<input type="submit" class="btn btn-danger" value="Supprimer">
+						</form>
+						<p></p>
+						<form th:action="@{'/clients/maj/'+${client.id}}" th:object="${client}" th:method="update">
+							<input type="submit" class="btn btn-success" value="Mettre à jour">
+						</form>
+					</td>
+			</tr>
 
 			</tbody>
 		</table>

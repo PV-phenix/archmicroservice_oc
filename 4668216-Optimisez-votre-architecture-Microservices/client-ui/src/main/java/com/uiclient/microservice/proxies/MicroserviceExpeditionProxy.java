@@ -17,7 +17,7 @@ public interface MicroserviceExpeditionProxy {
 
 	   @GetMapping(value = "/expeditions")
 	   List<ExpeditionBean> toutesLesExpeditions();
-	
+
 	   @GetMapping(value = "/expeditions/{id}")
 	   ExpeditionBean recupererUneExpedition(@PathVariable int id);
 }
