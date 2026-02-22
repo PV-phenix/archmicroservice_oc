@@ -5,7 +5,7 @@
 <head>
 
 	<title>Mcommerce-mettre à jour une commande</title>
-
+	<meta charset="UTF-8">
 	<link rel="stylesheet" type="text/css" href="http://localhost:9000/webjars/bootstrap/5.3.8/css/bootstrap.min.css" />
 
 </head>
@@ -33,8 +33,7 @@
 		<div class="col-md-4 mx-auto mt-5 text-center">	
 		<div align="center" class="input-group mb-3 ">
 		
-			<form action="#" th:action="@{/lescommandes/maj/{commande.id}(commande.id=${commande.id})}"th:attr="value=#{number}" method="post"
-				th:object="${commande.id}">
+			<form action="#" th:action="@{'/lescommandes/maj/'+${commande.id}}" th:object="${commande}" method="post">
 				<div class="input-group mb-3" >
 					<label  class="input-group-text">ID commande:</label>
 					<input type="text" class="form-control" th:field="${commande.id}"/>
@@ -43,11 +42,6 @@
 					<label  class="input-group-text">Product ID:</label>
 					<input type="text" class="form-control" th:field="${commande.productId}" />
 				</div>
-				<form  action="#" th:action="@{'//localhost:9000/produits''}" method="get">
-					<div class="input-group mb-3">
-					        <button type="submit" class="btn btn-danger">Choisir un autre produit  </button>
-					</div>	
-				</form>			
 				<div class="input-group mb-3">
 					<label  class="input-group-text">Titre:</label>
 					<input type="text" class="form-control" th:field="${commande.titre}" />
@@ -64,10 +58,15 @@
 					<label  class="input-group-text">Payée:</label>
 					<input type="text" class="form-control" th:field="${commande.commandePayee}" />
 				</div>
-				<button type="submit" value="post">Mettre à jour</button>
+				<button type="submit" class="btn btn-success" value="Mettre à jour">Mettre à jour</input>
 			</form>
 		</div>
 	</div>
+<!--	<form th:action="@{'/lescommandes/maj/'+${commande.id}}" th:object="${commande}" method="post">-->
+<!--		</div>-->
+<!--			<button type="submit" class="btn btn-success" value="Mettre à jour">Changer de produit</button>-->
+<!--		</div>	-->
+<!--	</form>-->
 </div>
 	<script type="text/javascript" src="http://localhost:9000/webjars/bootstrap/5.3.8/js/bootstrap.min.js"></script>
 </body>

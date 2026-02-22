@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import com.uiclient.microservice.beans.CommandeBean;
+import com.uiclient.microservice.dto.CommandeBean;
 
 @FeignClient(name = "com.mcommandes",url = "http://localhost:9002")
 

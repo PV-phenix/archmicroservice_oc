@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import com.uiclient.microservice.beans.ClientBean;
+import com.uiclient.microservice.dto.ClientBean;
 
 @FeignClient(name = "com.mclients",url = "http://localhost:9005")
 
@@ -20,8 +20,8 @@ public interface MicroserviceClientProxy {
     @GetMapping(value = "/lesclients")
     public Iterable<ClientBean> lesClients();
     
-    @PostMapping(value = "/lesclients/find/{id}")//@RequestParam  int id,@RequestBody CommandeBean commande
-    public ClientBean  findLeClient(@RequestParam  int id);
+    @PostMapping(value = "/lesclients/trouve/{id}")//@RequestParam  int id,@RequestBody CommandeBean commande
+    public ClientBean  trouveLeClient(@RequestParam  int id);
     
     @PostMapping(value = "/lesclients/maj/{id}")
     public ClientBean majLeClient(@RequestParam  int id,@RequestBody ClientBean client) ;

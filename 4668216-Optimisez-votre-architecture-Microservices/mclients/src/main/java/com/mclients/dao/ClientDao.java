@@ -1,5 +1,7 @@
 package com.mclients.dao;
 
+import java.util.Optional;
+
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
@@ -21,5 +23,7 @@ public interface ClientDao extends JpaRepository<Client,Integer>{
 	@Query("INSERT INTO Client client(id, nom, prenom,adresse,email) VALUES (?1,?2,?3,?4,?5)")
 	  void insertClient(int id, String  nom, String prenom, String adresse, String email);
 
+	void saveAndFlush(Optional<Client> client);
+	
 }
 

@@ -7,7 +7,7 @@ import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
-import com.uiclient.microservice.beans.ExpeditionBean;
+import com.uiclient.microservice.dto.ExpeditionBean;
 
 @FeignClient(name = "mexpedition",url = "http://localhost:9006")
 

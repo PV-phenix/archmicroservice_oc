@@ -3,7 +3,7 @@
 <html xmlns:th="http://www.thymeleaf.org">
 
 <head>
-
+	<charset="UTF-8">
 	<title>Accueil Commande</title>
 	<link rel="stylesheet" type="text/css"
 	href="http://localhost:9002/webjars/bootstrap/5.3.8/css/bootstrap.min.css" />
@@ -25,6 +25,7 @@
 					<th>Dates</th>
 					<th>Titre</th>
 					<th>Quantité</th>
+					<th>Somme payée</th>
 					<th>Payée</th>
 					<th>Actions</th>
 				</tr>
@@ -38,6 +39,7 @@
 					<td th:text="${#temporals.format(commande.dateCommande, 'dd MMMM yyyy HH:mm')}">Date de commande</td>
 					<td th:text="${commande.titre}">Titre</td>
 					<td th:text="${commande.quantite}">Quantité</td>
+					<td th:text="${commande.prix}">Somme payée</td>
 					<td th:text="${commande.commandePayee}">Payée</td>
 					<td>
 						<form th:action="@{'/lescommandes/delete/'+${commande.id}}" th:object="${commande}"
@@ -46,7 +48,7 @@
 						</form>
 						<p></p>
 						<form th:action="@{'/lescommandes/'+${commande.id}}" th:object="${commande}"
-							th:method="update">
+							th:method="post">
 							<input type="submit" class="btn btn-success" value="Mettre à jour">
 						</form>
 

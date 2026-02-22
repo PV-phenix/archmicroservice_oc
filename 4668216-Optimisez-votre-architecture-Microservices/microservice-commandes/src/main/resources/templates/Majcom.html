@@ -9,7 +9,7 @@
 <div>
     <h1 class="text-center">Commande Mcommerce - Mise à jour</h1>
 </div>
-<form action="#" th:action="@{/commandes/majcom/}+${commande.id}" th:object="${commande}" method="post">
+<form action="#" th:action="@{'/commandes/maj/'+${commande.id}" th:object="${commande}" method="post">
     <table class="table table-striped table-bordered">
         <tr>
             <td>Id de Commande:</td>

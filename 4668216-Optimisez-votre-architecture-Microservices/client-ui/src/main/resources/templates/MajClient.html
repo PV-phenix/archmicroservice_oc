@@ -3,7 +3,7 @@
 <html xmlns:th="http://www.thymeleaf.org">
 
 <head>
-
+	<meta charset="UTF-8">
 	<title>Mcommerce-Clients</title>
 
 	<link rel="stylesheet" type="text/css" href="http://localhost:9000/webjars/bootstrap/5.3.8/css/bootstrap.min.css" />
@@ -17,7 +17,7 @@
 	<div class="col-md-4 mx-auto mt-5 text-center">	
 		<div align="center" class="input-group mb-3 ">
 			
-			<form action="#" th:action="@{'/lesclients/maj/'+${client.id}}" th:object="${client.id}" method="post" >
+			<form action="#" th:action="@{'/lesclients/maj/'+${client.id}}" th:object="${client}" method="post" >
 				<div class="input-group mb-3">
 					<label  class="input-group-text">Id:</label>
 					<input type="text" class="form-control" th:field="${client.id}" />

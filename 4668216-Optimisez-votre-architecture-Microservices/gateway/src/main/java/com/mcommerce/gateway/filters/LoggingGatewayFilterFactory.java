@@ -23,9 +23,9 @@ public class LoggingGatewayFilterFactory extends AbstractGatewayFilterFactory<Lo
 			}
 			public Config(String baseMessage, boolean preLogger, boolean postLogger) {
 				super();
-//				this.baseMessage = baseMessage;//Constructeur sans arguments
-//				this.preLogger = preLogger;// les arguments sont definies dans application.properties
-//				this.postLogger = postLogger;
+				this.baseMessage = baseMessage;//Constructeur sans arguments
+				this.preLogger = preLogger;// les arguments sont definies dans application.properties
+				this.postLogger = postLogger;
 			}
 			public void setBaseMessage(String baseMessage) {
 				this.baseMessage = baseMessage;

@@ -3,7 +3,7 @@
 <html xmlns:th="http://www.thymeleaf.org">
 
 <head>
-
+	<meta charset="UTF-8">
 	<title>Accueil Commande</title>
 	<link rel="stylesheet" type="text/css"
 	href="http://localhost:9002/webjars/bootstrap/5.3.8/css/bootstrap.min.css" />
@@ -45,8 +45,7 @@
 							<input type="submit" class="btn btn-danger" value="Supprimmer">
 						</form>
 						<p></p>
-						<form th:action="@{'/commandes/update/'+${commande.id}}" th:object="${commande}"
-							th:method="update">
+						<form th:action="@{'/commandes/maj/'+${commande.id}}" th:object="${commande}" th:method="post">
 							<input type="submit" class="btn btn-success" value="Mettre à jour">
 						</form>
 

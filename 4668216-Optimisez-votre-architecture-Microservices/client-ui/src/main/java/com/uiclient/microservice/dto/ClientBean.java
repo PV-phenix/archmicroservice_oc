@@ -1,4 +1,4 @@
-package com.uiclient.microservice.beans;
+package com.uiclient.microservice.dto;
 
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;

@@ -72,19 +72,36 @@ public class CommandeController {
 
 	        if(commande.isEmpty()) throw new CommandeNotFoundException("Cette commande n'existe pas");
 
-	    model.addAttribute("commande", commande);
-	    return "MajCommande";
+	        model.addAttribute("commande", commande);
+	        return "MajCommande";
 	  }
     /*
     * Permet de mettre à jour une commande existante.
     * save() mettra à jours uniquement les champs renseign�s dans l'objet commande re�u. Ainsi dans ce cas, comme le champs date dans "commande" n'est
     * pas renseign�, la date pr�c�demment enregistr�e restera en place
+    * 
     **/
-    @PostMapping("/commandes/maj/{id}")
-    public void miseAJourDuneCommande(@RequestParam int id,@RequestBody Commande commande) {
+	  
+    @PostMapping(value = "/lescommandes/maj/{id}",consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)// consumes = MediaType.APPLICATION_JSON_VALUE
+    public void miseAJourDeCommande(@PathVariable int id,@RequestBody Commande commande,Model model) {
+    	
+        commandesDao.save(commande);	
 
-        commandesDao.save(commande);
     }
+	    
+    @PostMapping(value = "/commandes/maj/{id}",produces = {"application/json", "application/xml"},  consumes = {"application/x-www-form-urlencoded"})// consumes = MediaType.APPLICATION_JSON_VALUE
+    public ModelAndView miseAJourDuneCommande(@RequestParam int id,@RequestBody Commande commande,Model model) {
+    	
+        //commandesDao.save(commande);	
+    	model.addAttribute("commande", commande);
+	    ModelAndView modelAndView = new ModelAndView();
+	   
+	    modelAndView.setViewName("Majcom");	
+
+	    return modelAndView;
+
+    }
+    
     @PostMapping(value="/commandes/passecommande/{id}",consumes = MediaType.APPLICATION_JSON_VALUE)
     //public  ModAndView passerUneCommande(@PathVariable int id,@Validated Commande commande){
     public  void passerUneCommande(@RequestParam int id,@RequestBody Commande commande){

@@ -5,9 +5,8 @@ import java.util.Optional;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.health.contributor.HealthIndicator;
 import org.springframework.boot.health.contributor.Health;
-
+import org.springframework.boot.health.contributor.HealthIndicator;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -16,11 +15,12 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.RedirectView;
 
 import com.mclients.dao.ClientDao;
-import com.mclients.exceptions.ClientNotFoundException;
+import com.mclients.dto.UserDto;
 import com.mclients.model.Client;
 import com.mclients.service.ClientService;
 
@@ -53,6 +53,17 @@ public class ClientController  implements HealthIndicator {
 		return null;
 	}
 	
+	@Tag(name = "Accueil Clients")
+    @GetMapping("/")
+    public ModelAndView pageAccueil()
+	{
+	   	ModelAndView modelAndView = new ModelAndView();
+		   
+    	modelAndView.setViewName("Accueil");	
+
+	    return modelAndView;
+	}
+	
 	@Tag(name = "Les clients - Affichage")
     @GetMapping("/lesclients")
     public Iterable<Client>  lesClients()
@@ -65,18 +76,29 @@ public class ClientController  implements HealthIndicator {
     @GetMapping("/clients")
     public ModelAndView  listeDesClients(Model model){
 		
-		
-    	Iterable<Client> clients = clientDao.findAll();
+		Iterable<Client> clients = clientDao.findAll();
     	
     	model.addAttribute("clients", clients);
 
     	ModelAndView modelAndView = new ModelAndView();
 	   
-    	modelAndView.setViewName("Accueil");	
+    	modelAndView.setViewName("Clients");	
 
 	    return modelAndView;
     	
     }
+	  @PostMapping(value="/clients/maj/{id}",consumes="application/json")//consumes = {"*/*"}
+	  public  RedirectView upClient(@RequestParam int id,@RequestBody Client client)
+	  {
+
+		  clientDao.saveAndFlush(client);
+
+		  RedirectView redirectView = new RedirectView();
+		  redirectView.setUrl("/");
+		 
+		  return redirectView;
+
+	  }
 	
 
 	
@@ -149,11 +171,13 @@ public class ClientController  implements HealthIndicator {
 		}
 	
 	@Tag(name = "Les clients - Mise à jour d'un client")
-	@PostMapping("/clients/update/{id}")
+	@PostMapping(value="/clients/update/{id}")
 	public ModelAndView miseAjourClientById(@PathVariable int id,Model model) {
 		
 
 		Optional<Client> client =clientDao.findById(id);
+		
+		//if (client !=null)
 		model.addAttribute("client", client);
 
 	    ModelAndView modelAndView = new ModelAndView();
@@ -164,21 +188,21 @@ public class ClientController  implements HealthIndicator {
 		}
 	
 	@Tag(name = "Les clients - Client mis à jour")
-    @PostMapping(value = "/clients/maj/{id}")
-   	public RedirectView  majClient(@RequestParam int id,@RequestBody Client client){
+    @PostMapping(value = "/lesclients/maj/{id}",consumes = {"*/*"})//consumes = {"*/*"})
+   	public void  majClient(@RequestParam int id,@RequestBody Client client){
 		
 		clientDao.saveAndFlush(client);
 		
-		RedirectView redirectView = new RedirectView();
-		redirectView.setUrl("/clients");
-
-		return redirectView;
+//		RedirectView redirectView = new RedirectView();
+//		redirectView.setUrl("/clients");
+//
+//		return redirectView;
    	
 	}
 
 	@Tag(name = "Les clients - Mis à jour Client pour le client central")
-    @PostMapping(value = "/lesclients/find/{id}")
-   	public Optional<Client>  findLeClient(@PathVariable int id){
+    @PostMapping(value = "/lesclients/trouve/{id}")
+   	public Optional<Client>  trouveLeClient(@RequestParam int id){
 		
    		Optional<Client> client =clientDao.findById(id);
 
@@ -186,13 +210,19 @@ public class ClientController  implements HealthIndicator {
    	
 	}
 	
-	@Tag(name = "Les clients - Mise à jour Client - Client Central")
-    @PostMapping(value = "/lesclients/maj/{id}", consumes="application/json")
-   	public void  majLeClient(@RequestParam  int id,@RequestBody Client client){
-	   	if(client == null) throw new ClientNotFoundException("Impossible de modifier ce client");
-    	
-		clientDao.saveAndFlush(client);
-   	
+	@GetMapping("/user/registration")
+	public ModelAndView showRegistrationForm(WebRequest request, Model model) {
+	    UserDto userDto = new UserDto();
+	    userDto.setFirstName("John");
+	    userDto.setLastName("Doe");
+	    model.addAttribute("user", userDto);
+	    ModelAndView modelAndView = new ModelAndView();
+		   
+	    modelAndView.setViewName("registration");	
+
+	    return modelAndView;
+	    
+	   // return "registration";
 	}
 }
 

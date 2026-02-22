@@ -21,6 +21,8 @@ public class Commande {
     private LocalDateTime dateCommande;
     
     private String titre;
+    
+    private Double prix;
 
     private Integer quantite;
 
@@ -29,16 +31,25 @@ public class Commande {
     public Commande() {
     }
 
-    public Commande(int id, Integer productId, LocalDateTime dateCommande,String titre, Integer quantite, Boolean commandePayee) {
+    public Commande(int id, Integer productId, LocalDateTime dateCommande,String titre,Double Prix, Integer quantite, Boolean commandePayee) {
         this.id = id;
         this.productId = productId;
         this.titre = titre;
+        this.prix = Prix;
         this.dateCommande = dateCommande;
         this.quantite = quantite;
         this.commandePayee = commandePayee;
     }
 
-    public int getId() {
+    public Double getPrix() {
+		return prix;
+	}
+
+	public void setPrix(Double prix) {
+		this.prix = prix;
+	}
+
+	public int getId() {
         return id;
     }
 
